@@ -47,19 +47,24 @@ posts = [
 
 def index(request):
     template = 'blog/index.html'
-    context = {'posts': posts}
+    context = {'posts': posts[::-1]}
     return render(request, template, context)
 
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    post_by_id = [el for el in posts if el['id'] == id][0]
+    post_by_id: dict = [el for el in posts
+                        if el['id'] == id][0]
     context = {'post': post_by_id}
     return render(request, template, context)
 
 
 def category_posts(request, category_slug):
     template = 'blog/category.html'
-    posts_by_category = [el for el in posts if el['category'] == category_slug]
-    context = {'post': posts_by_category, 'category': category_slug}
+    posts_by_category: list = [el for el in posts
+                               if el['category'] == category_slug]
+    context = {
+        'post': posts_by_category,
+        'category': category_slug
+    }
     return render(request, template, context)

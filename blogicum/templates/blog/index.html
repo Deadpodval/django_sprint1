@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}
   Лента записей
 {% endblock title %}
@@ -18,7 +19,10 @@
           Дата: {{ post.date }}
         </li>
         <li>
-          Категория: <a href="{% url 'blog:category_posts' post.category %}">{{ post.category }}</a>
+          Категория:
+          <a href="{% url 'blog:category_posts' post.category %}">
+            {{ post.category }}
+          </a>
         </li>
       </ul>
       <!-- Первые 10 слов -->
