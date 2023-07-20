@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 
@@ -53,18 +54,16 @@ def index(request):
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    post_by_id: dict = [el for el in posts
-                        if el['id'] == id][0]
-    context = {'post': post_by_id}
-    return render(request, template, context)
+    try:
+        return render(request, template, posts[id])
+    except IndexError:
+        raise Http404('Страница не найдена')
 
 
 def category_posts(request, category_slug):
     template = 'blog/category.html'
-    posts_by_category: list = [el for el in posts
-                               if el['category'] == category_slug]
+
     context = {
-        'post': posts_by_category,
         'category': category_slug
     }
     return render(request, template, context)
