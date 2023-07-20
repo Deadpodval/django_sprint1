@@ -55,7 +55,7 @@ def index(request):
 def post_detail(request, id):
     template = 'blog/detail.html'
     try:
-        return render(request, template, posts[id])
+        return render(request, template, {'post': posts[id]})
     except IndexError:
         raise Http404('Страница не найдена')
 
